@@ -10,42 +10,14 @@ public class FootballClub {
     private String clubName;
     private final Vector <FootballPlayer> footballTeam;
 
-    FootballClub(String clubName) throws FileNotFoundException {
+    FootballClub(String clubName, Trainer trainer) {
         this.clubName = clubName;
-        File file = new File("C:\\Users\\Vlad\\IdeaProjects\\first\\src\\main\\FootballClub");
         footballTeam = new Vector<FootballPlayer>();
-        fillFootballClub(file);
+        this.trainer = trainer;
     }
 
-    private Position stringToPosition(String title) {
-        if(title.equals("GK"))
-            return Position.Goalkeeper;
-        else if(title.equals("DF"))
-            return Position.Defender;
-        else if(title.equals("CM"))
-            return Position.Midfielder;
-        else
-            return Position.Striker;
-    }
-
-    private void fillFootballClub(File file) throws FileNotFoundException {
-        Scanner sc = new Scanner(file);
-
-        String trainerName = sc.next();
-        int trainerSkill = sc.nextInt();
-
-        trainer = new Trainer(trainerName, trainerSkill);
-
-        while (sc.hasNextLine()) {
-            String stringPlayerName = sc.next();
-            int ratingScore = sc.nextInt();
-            String titlePosition = sc.next();
-            int age = sc.nextInt();
-
-            addPlayerToFootballTeam(
-                    new FootballPlayer(stringPlayerName, age, ratingScore,
-                            stringToPosition(titlePosition)));
-        }
+    public String getClubName() {
+        return clubName;
     }
 
     public Vector<FootballPlayer> getFootballTeam() {
@@ -74,5 +46,15 @@ public class FootballClub {
         }
 
         return trainerToString+listPlayersInClub;
+    }
+
+    public int calculateStrongTeam() {
+        int sumRatingScore = 0;
+
+        for(FootballPlayer footballPlayer:footballTeam) {
+            sumRatingScore += footballPlayer.getRatingScore();
+        }
+
+        return sumRatingScore/footballTeam.size();
     }
 }

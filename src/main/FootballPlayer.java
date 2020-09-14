@@ -33,6 +33,10 @@ public class FootballPlayer {
         return 5000*(45-age)*ratingScore;
     }
 
+    public Position getPosition() {
+        return position;
+    }
+
     @Override
     public String toString() {
         return name + " "

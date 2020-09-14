@@ -10,15 +10,26 @@ public class TransferMarket {
 
     public TransferMarket() throws FileNotFoundException {
         playersOnTransfer = new Vector<FootballPlayer>(0);
-        File file = new File("C:\\Users\\Vlad\\IdeaProjects\\first\\src\\main\\TransferMarket");
+        File file = new File("C:\\Users\\Vlad\\IdeaProjects\\first\\src\\main\\PlayerList");
         fillTransferMarket(file);
     }
 
     public void addPlayerToTransfer(FootballPlayer footballPlayer) {
        playersOnTransfer.add(footballPlayer);
     }
+
     public void deletePlayerFromTransfer(FootballPlayer footballPlayer) {
         playersOnTransfer.remove(footballPlayer);
+    }
+
+    public FootballPlayer getPlayerByPosition(Position position) {
+        for(FootballPlayer footballPlayer:playersOnTransfer) {
+            if(footballPlayer.getPosition() == position) {
+                playersOnTransfer.remove(footballPlayer);
+                return footballPlayer;
+            }
+        }
+        return null;
     }
 
     public Vector<FootballPlayer> getPlayersOnTransfer() {
