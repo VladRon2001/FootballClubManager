@@ -1,7 +1,6 @@
 package main;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class Manager {
     private int budget;
@@ -34,15 +33,14 @@ public class Manager {
         Random random = new Random();
 
         int indexRandomPlayer = random.nextInt(countPlayersOnTransfer) - 1;
-        boolean isBuy = random.nextBoolean();
 
-        if(isBuy) {
-            FootballPlayer footballPlayer = transferMarket.getPlayersOnTransfer().elementAt(indexRandomPlayer);
+        FootballPlayer footballPlayer = transferMarket.getPlayersOnTransfer().elementAt(indexRandomPlayer);
 
-            if(budget > footballPlayer.calculateCost()) {
-                footballClub.addPlayerToFootballTeam(footballPlayer);
-                transferMarket.deletePlayerFromTransfer(footballPlayer);
-                budget -= footballPlayer.calculateCost();
+        Deal deal = new Deal(footballPlayer, TypeDeal.Buying);
+
+        if(budget > deal.getCostDeal()) {
+            if(deal.makeDeal(transferMarket, footballClub)) {
+                budget -= deal.getCostDeal();
             }
         }
     }
@@ -51,22 +49,16 @@ public class Manager {
         if (footballClub.getFootballTeam().size() > 4) {
             Random random = new Random();
 
-            boolean isSell = random.nextBoolean();
+            int indexRandomPlayer = random.nextInt(footballClub.getFootballTeam().size());
+            FootballPlayer footballPlayer = footballClub.getFootballTeam().elementAt(indexRandomPlayer);
 
-            if(isSell) {
-               int indexRandomPlayer = random.nextInt(footballClub.getFootballTeam().size());
-               FootballPlayer footballPlayer = footballClub.getFootballTeam().elementAt(indexRandomPlayer);
+            Deal deal = new Deal(footballPlayer, TypeDeal.Selling);
+            deal.makeDeal(transferMarket, footballClub);
 
-               transferMarket.addPlayerToTransfer(footballPlayer);
-               footballClub.deletePlayerToFootballTeam(footballPlayer);
-
-               budget += footballPlayer.calculateCost();
+            if(deal.makeDeal(transferMarket, footballClub)) {
+                budget += deal.getCostDeal();
             }
         }
-    }
-
-    public int getBudget() {
-        return budget;
     }
 
     public void levelUpTrainer() {

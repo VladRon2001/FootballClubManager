@@ -30,10 +30,6 @@ public class Main {
 
         FootballWorld footballWorld = new FootballWorld(managers, transferMarket);
 
-        for(Manager manager:footballWorld.getManagers()) {
-            manager.showFootballTeam();
-        }
-
         for(int i = 0; i < 10; ++i) {
             for(Manager manager:footballWorld.getManagers()) {
                 Random random = new Random();

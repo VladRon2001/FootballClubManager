@@ -6,8 +6,8 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class FootballClub {
-    private Trainer trainer;
-    private String clubName;
+    private final Trainer trainer;
+    private final String clubName;
     private final Vector <FootballPlayer> footballTeam;
 
     FootballClub(String clubName, Trainer trainer) {

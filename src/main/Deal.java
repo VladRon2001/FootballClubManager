@@ -1,52 +1,34 @@
 package main;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class Deal {
-    private int costDeal;
+    private final int costDeal;
     final private TypeDeal typeDeal;
     final private FootballPlayer playerInDeal;
-    private boolean accept;
 
     public Deal(FootballPlayer player, TypeDeal typeDeal) {
         costDeal = player.calculateCost();
         this.typeDeal = typeDeal;
         playerInDeal = player;
-        accept = false;
     }
 
-    public void makeDeal() {
-        System.out.println("Cost deal - " + costDeal + "\n1 - confirm deal\n2 - change cost");
-
-        Scanner sc = new Scanner(System.in);
+    public boolean makeDeal(TransferMarket transferMarket, FootballClub footballClub) {
         Random random = new Random();
-        int anInt = sc.nextInt();
+        boolean doDeal = random.nextBoolean();
 
-        if (anInt == 1) {
-            accept = true;
-            return;
-        }
-        else {
-            System.out.println("Enter your cost");
-            int costByManger = sc.nextInt();
-            int randomPercentage;
+        if(doDeal) {
             if(typeDeal == TypeDeal.Buying) {
-                 randomPercentage = (costDeal-costByManger)*random.nextInt(10);
+                footballClub.addPlayerToFootballTeam(playerInDeal);
+                transferMarket.deletePlayerFromTransfer(playerInDeal);
             }
             else {
-                randomPercentage = (costByManger-costDeal)*random.nextInt(10);
+                transferMarket.addPlayerToTransfer(playerInDeal);
+                footballClub.deletePlayerToFootballTeam(playerInDeal);
             }
-
-            if (randomPercentage < 1000) {
-                costDeal = costByManger;
-                accept = true;
-            }
+            return true;
         }
-    }
-
-    public boolean isAccept() {
-        return accept;
+        return false;
     }
 
     public int getCostDeal() {

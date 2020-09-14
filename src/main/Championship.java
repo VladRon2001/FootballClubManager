@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Vector;
 
 public class Championship {
-    private Vector<ChampionshipFootballClub> participants;
+    private final Vector<ChampionshipFootballClub> participants;
 
     Championship(Vector<FootballClub> footballClubs) {
         participants = new Vector<>();

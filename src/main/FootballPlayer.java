@@ -4,7 +4,7 @@ public class FootballPlayer {
     private final String name;
     private final int age;
     private int ratingScore;
-    private Position position;
+    private final Position position;
 
     public FootballPlayer(String name, int age, int ratingScore, Position position) {
         this.age = age;

@@ -1,12 +1,11 @@
 package main;
 
-import java.util.Scanner;
 import java.util.Vector;
 
 public class FootballWorld {
-    private TransferMarket transferMarket;
-    private Vector<Manager> managers;
-    private Championship championship;
+    private final TransferMarket transferMarket;
+    private final Vector<Manager> managers;
+    private final Championship championship;
 
     public FootballWorld(Vector<Manager> managers, TransferMarket transferMarket) {
          this.managers = managers;
@@ -20,11 +19,6 @@ public class FootballWorld {
          }
 
         championship = new Championship(footballClubs);
-    }
-
-
-    public void showTransferPlayers() {
-        System.out.println(transferMarket.toString());
     }
 
     public Vector<Manager> getManagers() {
